@@ -7,7 +7,10 @@ file_lines(File, Lines) :-
 stream_lines(In, Lines) :-
     read_string(In, _, Str),
     split_string(Str, "\n", "", L),
-    delete(L, "", Lines).
+    exclude(comment_or_empty, L, Lines).
+
+comment_or_empty("").
+comment_or_empty(Str) :- sub_string(Str, 0, 1, _, "#").
 
 % Building blocks
 rstring_length(X, Word) :- string_length(Word, X).
