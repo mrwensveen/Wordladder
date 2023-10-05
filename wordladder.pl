@@ -41,23 +41,23 @@ dif1(String1, String2) :- difference(String1, String2, 1).
 
 % Find the paths from Start to End within words of the same length and one letter difference
 
-ladder(Word, Goal, _, [Goal]) :-
+ladder(Word, Goal, _, [Goal], 1) :-
     dif1(Word, Goal),
     !.
 
-ladder(Word, Goal, Words, Ladder) :-
-    length(Ladder, L),
-    L < 10,
+ladder(Word, Goal, Words, Ladder, Length) :-
     [Head|Tail] = Ladder,
     delete(Words, Word, Rest),
     member(Head, Rest),
     dif1(Word, Head),
-    ladder(Head, Goal, Rest, Tail).
+    ladder(Head, Goal, Rest, Tail, L),
+    L < 10,
+    Length is L + 1.
 
-woordladder(Start, Goal, Ladder) :-
+wordladder(Start, Goal, Ladder, Length) :-
     file_lines("words.nl.txt", Lines),
     same_length(Start, Lines, Same),
-    ladder(Start, Goal, Same, Ladder).
+    ladder(Start, Goal, Same, Ladder, Length).
 
 % Tests and notes
 
