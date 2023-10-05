@@ -55,7 +55,7 @@ ladder(Word, Goal, Words, Ladder) :-
     ladder(Head, Goal, Rest, Tail).
 
 woordladder(Start, Goal, Ladder) :-
-    file_lines("woorden.txt", Lines),
+    file_lines("words.nl.txt", Lines),
     same_length(Start, Lines, Same),
     ladder(Start, Goal, Same, Ladder).
 
